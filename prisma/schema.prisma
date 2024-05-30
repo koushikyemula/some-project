@@ -128,3 +128,46 @@ model ChatMessage {
   chatRoomId String?   @db.Uuid
   seen       Boolean   @default(false)
 }
+
+model Bookings {
+  id         String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  date       DateTime
+  slot       String
+  email      String
+  Customer   Customer? @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  customerId String?   @db.Uuid
+  domainId   String?   @db.Uuid
+  createdAt  DateTime  @default(now())
+}
+
+model Campaign {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name      String
+  customers String[]
+  domain    Domain[]
+  template  String?
+  User      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String?  @db.Uuid
+  createdAt DateTime @default(now())
+}
+
+model Product {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name      String
+  price     Int
+  image     String
+  createdAt DateTime @default(now())
+  Domain    Domain?  @relation(fields: [domainId], references: [id], onDelete: Cascade)
+  domainId  String?  @db.Uuid
+}
+
+enum Plans {
+  STANDARD
+  PRO
+  ULTIMATE
+}
+
+enum Role {
+  user
+  assistant
+}
