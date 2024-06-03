@@ -2,7 +2,7 @@ import NextTopLoader from "nextjs-toploader";
 
 const TopLoader = () => (
   <NextTopLoader
-    color="#121212"
+    color="#1f1f1f"
     showSpinner={false}
     initialPosition={0.08}
     crawlSpeed={200}
